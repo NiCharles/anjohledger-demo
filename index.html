@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AnjohLedger Onboarding Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <div class="logo">AnjohLedger</div>
+      <div class="tagline">For treasurers who are tired of chaos.</div>
+    </header>
+
+    <main class="screen-container">
+      <!-- Screen 1: Chaos (WhatsApp-style) -->
+      <section class="screen active" data-screen-id="chaos">
+        <div class="phone-frame">
+          <div class="phone-header">
+            <div class="phone-title">MECUDA - NW</div>
+            <div class="phone-subtitle">Treasurer’s WhatsApp</div>
+          </div>
+          <div class="chat-window">
+            <div class="chat-message incoming">
+              <div class="chat-name">Tonfon</div>
+              <div class="chat-text">I don pay o. Check your Zelle.</div>
+              <div class="chat-meta">2:34 PM</div>
+            </div>
+            <div class="chat-message incoming">
+              <div class="chat-name">Ambubit</div>
+              <div class="chat-text">See screenshot.</div>
+              <div class="chat-meta">2:36 PM</div>
+            </div>
+            <div class="chat-message incoming">
+              <div class="chat-name">Ngopazi</div>
+              <div class="chat-text">Treasurer, I sent my own yesterday.</div>
+              <div class="chat-meta">2:38 PM</div>
+            </div>
+            <div class="chat-message system">
+              <div class="chat-text">Zelle payment received from Amina — $300</div>
+              <div class="chat-meta">2:39 PM</div>
+            </div>
+            <div class="chat-message system">
+              <div class="chat-text">Deposit notification: $300</div>
+              <div class="chat-meta">1:45 PM</div>
+            </div>
+          </div>
+          <div class="phone-footer">
+            <div class="phone-caption">This is the treasurer’s life.</div>
+            <div class="pagination">Chaos 1/7</div>
+          </div>
+        </div>
+
+        <div class="copy-block">
+          <h1>Every treasurer you know lives here.</h1>
+          <p>
+            WhatsApp, Zelle, Cash App, bank alerts, screenshots, voice notes —
+            all flying at you from every direction. And somehow, you’re supposed
+            to turn this chaos into a clean report.
+          </p>
+        </div>
+
+        <button class="cta-primary" data-next-screen="stress">
+          See how this chaos feels in your body
+        </button>
+        <button class="cta-secondary" data-next-screen="ledger-preview">
+          Skip ahead to the ledger
+        </button>
+      </section>
+
+      <!-- Screen 2: Stress -->
+      <section class="screen" data-screen-id="stress">
+        <div class="screen-content">
+          <h1>It’s not just messages. It’s pressure.</h1>
+          <p>
+            Members don’t see the late nights, the double-checking, the fear of
+            making a mistake with someone’s hard-earned money.
+          </p>
+          <ul class="bullet-list">
+            <li>“Did I record Amina’s payment?”</li>
+            <li>“Did I miss that Cash App screenshot?”</li>
+            <li>“What if my report doesn’t balance?”</li>
+          </ul>
+          <p>
+            You’re not just tracking money. You’re carrying trust.
+          </p>
+        </div>
+
+        <button class="cta-primary" data-next-screen="introduce">
+          What if the ledger did the heavy lifting?
+        </button>
+        <button class="cta-secondary" data-next-screen="chaos">
+          Go back to the chaos
+        </button>
+      </section>
+
+      <!-- Screen 3: Introduce AnjohLedger -->
+      <section class="screen" data-screen-id="introduce">
+        <div class="screen-content">
+          <h1>Meet AnjohLedger.</h1>
+          <p>
+            A simple, mobile-first ledger built for njangi and association
+            treasurers — not for banks, not for accountants, but for <em>you</em>.
+          </p>
+          <p>
+            One place where every payment, every member, every balance, and
+            every report lives — clean, organized, and ready when you are.
+          </p>
+        </div>
+
+        <button class="cta-primary" data-next-screen="how-it-works">
+          Show me how it works
+        </button>
+        <button class="cta-secondary" data-next-screen="ledger-preview">
+          Jump straight to the ledger
+        </button>
+      </section>
+
+      <!-- Screen 4: How it works -->
+      <section class="screen" data-screen-id="how-it-works">
+        <div class="screen-content">
+          <h1>From chaos to clean ledger in three steps.</h1>
+          <ol class="numbered-list">
+            <li><strong>Add your members</strong> — names, phone numbers, and contributions.</li>
+            <li><strong>Record payments</strong> — Zelle, Cash App, bank transfer, cash.</li>
+            <li><strong>Share reports</strong> — balances, arrears, and history in one tap.</li>
+          </ol>
+          <p>
+            No formulas. No spreadsheets. No guessing.
+          </p>
+        </div>
+
+        <button class="cta-primary" data-next-screen="ledger-preview">
+          See a real ledger example
+        </button>
+        <button class="cta-secondary" data-next-screen="introduce">
+          Go back
+        </button>
+      </section>
+
+      <!-- Screen 5: Ledger preview -->
+      <section class="screen" data-screen-id="ledger-preview">
+        <div class="screen-content">
+          <h1>This is what your ledger could look like.</h1>
+          <div class="ledger-card">
+            <div class="ledger-header">
+              <div>
+                <div class="ledger-title">MECUDA - NW Contributions</div>
+                <div class="ledger-subtitle">Cycle: Jan – Mar 2026</div>
+              </div>
+              <div class="ledger-balance">
+                <div class="label">Total Collected</div>
+                <div class="value">$4,250</div>
+              </div>
+            </div>
+            <table class="ledger-table">
+              <thead>
+                <tr>
+                  <th>Member</th>
+                  <th>Paid</th>
+                  <th>Method</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Amina</td>
+                  <td>$300</td>
+                  <td>Zelle</td>
+                  <td class="status-paid">Paid</td>
+                </tr>
+                <tr>
+                  <td>Tonfon</td>
+                  <td>$300</td>
+                  <td>Cash App</td>
+                  <td class="status-paid">Paid</td>
+                </tr>
+                <tr>
+                  <td>Ngopazi</td>
+                  <td>$300</td>
+                  <td>Bank Transfer</td>
+                  <td class="status-paid">Paid</td>
+                </tr>
+                <tr>
+                  <td>Ambubit</td>
+                  <td>$0</td>
+                  <td>—</td>
+                  <td class="status-due">Due</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="ledger-footer">
+              <span>Members: 25</span>
+              <span>Paid: 18</span>
+              <span>Due: 7</span>
+            </div>
+          </div>
+          <p>
+            Imagine opening this instead of scrolling through screenshots and
+            voice notes.
+          </p>
+        </div>
+
+        <button class="cta-primary" data-next-screen="trust">
+          How does this build trust?
+        </button>
+        <button class="cta-secondary" data-next-screen="how-it-works">
+          Go back to how it works
+        </button>
+      </section>
+
+      <!-- Screen 6: Trust & reporting -->
+      <section class="screen" data-screen-id="trust">
+        <div class="screen-content">
+          <h1>Trust is your real currency.</h1>
+          <p>
+            When your ledger is clean, your reports are simple, and your
+            answers are instant, members relax.
+          </p>
+          <ul class="bullet-list">
+            <li>“Treasurer, how much have we collected?” → Answer in seconds.</li>
+            <li>“Who is still owing?” → One tap.</li>
+            <li>“Can you send me the report?” → Share as PDF or screenshot.</li>
+          </ul>
+          <p>
+            AnjohLedger doesn’t just track money. It protects your reputation.
+          </p>
+        </div>
+
+        <button class="cta-primary" data-next-screen="final-cta">
+          I want this kind of peace
+        </button>
+        <button class="cta-secondary" data-next-screen="ledger-preview">
+          See the ledger again
+        </button>
+      </section>
+
+      <!-- Screen 7: Final CTA -->
+      <section class="screen" data-screen-id="final-cta">
+        <div class="screen-content">
+          <h1>Ready to stop surviving and start treasuring?</h1>
+          <p>
+            We’re inviting a small group of treasurers to try AnjohLedger
+            early, give feedback, and shape the future of this tool.
+          </p>
+          <p>
+            If you’ve ever felt alone in the chaos, this is your invitation.
+          </p>
+        </div>
+
+        <a
+          class="cta-primary"
+          id="whatsapp-cta"
+          href="https://wa.me/1234567890?text=Hi%2C%20I%27m%20a%20treasurer%20and%20I%27d%20like%20to%20try%20AnjohLedger."
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Message us on WhatsApp to join the early list
+        </a>
+        <button class="cta-secondary" data-next-screen="chaos">
+          Replay the demo from the beginning
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
