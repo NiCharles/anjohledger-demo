@@ -6,18 +6,18 @@
   <title>AnjohLedger Demo</title>
   <style>
     :root {
-      --bg: linear-gradient(180deg, #e9f2ff 0%, #f6fbff 38%, #eef6ff 100%);
+      --bg: linear-gradient(180deg, #dbeafe 0%, #eef7ff 30%, #ddf7ff 68%, #eef6ff 100%);
       --surface: #ffffff;
-      --surface-2: #eef5ff;
-      --surface-3: #e0edff;
+      --surface-2: #e7f0ff;
+      --surface-3: #d4e7ff;
       --text: #0f1d33;
       --muted: #53657f;
       --border: #cfe0fb;
       --primary: #0f3d91;
-      --primary-2: #2563eb;
+      --primary-2: #1d4ed8;
       --primary-3: #dbeafe;
-      --accent: #06b6d4;
-      --accent-2: #0ea5e9;
+      --accent: #00c2ff;
+      --accent-2: #06b6d4;
       --accent-soft: #e6fbff;
       --success: #0d7a46;
       --warning: #9a6700;
@@ -46,7 +46,7 @@
       margin-bottom: 22px;
       padding: 18px 22px;
       border: 1px solid var(--border);
-      background: linear-gradient(135deg, #ffffff 0%, #e8f1ff 58%, #ddfbff 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #dbeafe 48%, #cffafe 100%);
       border-radius: 24px;
       box-shadow: var(--shadow);
     }
@@ -65,7 +65,7 @@
 
     .status-pill {
       border: 1px solid #2b6cf0;
-      background: linear-gradient(135deg, #0f3d91 0%, #2563eb 55%, #06b6d4 100%);
+      background: linear-gradient(135deg, #0f3d91 0%, #1d4ed8 48%, #00c2ff 100%);
       padding: 10px 14px;
       border-radius: 999px;
       color: #fff;
@@ -87,7 +87,7 @@
 
     .screen-header {
       padding: 30px 28px 0;
-      background: linear-gradient(180deg, #eef5ff 0%, rgba(238,245,255,0.2) 100%);
+      background: linear-gradient(180deg, #e6f0ff 0%, rgba(230,240,255,0.15) 100%);
       position: relative;
     }
 
@@ -216,7 +216,7 @@
     }
 
     .btn:hover { transform: translateY(-1px); }
-    .btn.primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 58%, var(--accent) 100%); color: #fff; border-color: var(--primary); }
+    .btn.primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 50%, var(--accent) 100%); color: #fff; border-color: var(--primary); }
     .btn.secondary { background: linear-gradient(180deg, #ffffff 0%, #edf5ff 100%); border-color: #c7daf8; }
     .btn.ghost { background: transparent; }
     .btn.success { background: var(--success); color: #fff; border-color: var(--success); }
@@ -272,7 +272,7 @@
     .prompt-box {
       margin-top: 22px;
       padding: 18px;
-      background: linear-gradient(135deg, #edf7ff 0%, #eefcff 100%);
+      background: linear-gradient(135deg, #dbeafe 0%, #dcfce7 0%, #cffafe 100%);
       border: 1px solid #bedbf8;
       border-radius: 16px;
       box-shadow: 0 8px 18px rgba(6, 182, 212, 0.08);
@@ -518,7 +518,7 @@
     .cta-card {
       margin-top: 22px;
       border: 1px solid #9fdcf3;
-      background: linear-gradient(135deg, #dff2ff 0%, #e8f0ff 52%, #dcfbff 100%);
+      background: linear-gradient(135deg, #cfe8ff 0%, #dbeafe 45%, #cffafe 100%);
       border-radius: 18px;
       padding: 20px;
       box-shadow: 0 12px 28px rgba(14, 165, 233, 0.10);
@@ -646,7 +646,7 @@
       </div>
       <div class="screen-footer">
         <div class="left-actions">
-          <span class="mini-note">Built as a static web app for easy deployment on Vercel.</span>
+          
         </div>
         <div class="right-actions">
           <button class="btn primary" data-next>See the problem</button>
@@ -807,7 +807,7 @@
           </div>
           <p class="mini-note" style="margin-top:12px;">WhatsApp: +1 (508) 509-0124</p>
         </div>
-        <p class="footer-note">This demo was built as a static HTML, CSS, and JavaScript prototype for deployment on Vercel. It will also run on Netlify, GitHub Pages, or locally in a browser.</p>
+        
       </div>
       <div class="screen-footer">
         <div class="left-actions"><button class="btn" data-back>Back</button></div>
@@ -832,20 +832,28 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // PostHog wiring
-    // 1) Create a PostHog project
-    // 2) Replace YOUR_POSTHOG_PROJECT_KEY below
-    // 3) If your project is in the US region, keep api_host as https://us.i.posthog.com
-    //    If your project is in the EU region, change it to https://eu.i.posthog.com
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split('.');2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement('script')).type='text/javascript',p.async=!0,p.src=s.api_host.replace('.i.posthog.com','-assets.i.posthog.com')+'/static/array.js',(r=t.getElementsByTagName('script')[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a='posthog',u.people=u.people||[],u.toString=function(t){var e='posthog';return'posthog'!==a&&(e+='.'+a),t||(e+=' (stub)'),e},u.people.toString=function(){return u.toString(1)+'.people (stub)'},o='capture identify alias people.set people.set_once reset person_properties.set person_properties.set_once group set_config register register_once unregister opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing startSessionRecording stopSessionRecording onSessionId'.split(' '),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_sugZabBRL64rdcA69yvhVRpwi9xDr595Tv86gVqP2gDq', {
-      api_host: 'https://us.i.posthog.com',
-      defaults: '2026-01-30',
-      autocapture: true,
-      capture_pageview: true,
-      capture_pageleave: true,
-      person_profiles: 'identified_only'
-    });
+    window.posthog = window.posthog || {
+      capture: function () {},
+      init: function () {}
+    };
+
+    try {
+      if (window.location.protocol !== "file:") {
+        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split('.');2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement('script')).type='text/javascript',p.async=!0,p.src=s.api_host.replace('.i.posthog.com','-assets.i.posthog.com')+'/static/array.js',(r=t.getElementsByTagName('script')[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a='posthog',u.people=u.people||[],u.toString=function(t){var e='posthog';return'posthog'!==a&&(e+='.'+a),t||(e+=' (stub)'),e},u.people.toString=function(){return u.toString(1)+'.people (stub)'},o='capture identify alias people.set people.set_once reset person_properties.set person_properties.set_once group set_config register register_once unregister opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing startSessionRecording stopSessionRecording onSessionId'.split(' '),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+        window.posthog.init('phc_sugZabBRL64rdcA69yvhVRpwi9xDr595Tv86gVqP2gDq', {
+          api_host: 'https://us.i.posthog.com',
+          autocapture: true,
+          capture_pageview: true
+        });
+      }
+    } catch (err) {
+      console.warn('PostHog disabled due to init error:', err);
+      window.posthog = {
+        capture: function () {},
+        init: function () {}
+      };
+    }
 
     const state = {
       currentScreen: 0,
