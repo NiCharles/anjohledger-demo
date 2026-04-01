@@ -2,269 +2,1264 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AnjohLedger Onboarding Demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>AnjohLedger Demo</title>
+  <style>
+    :root {
+      --bg: linear-gradient(180deg, #eef4ff 0%, #f8fbff 42%, #f4f7fb 100%);
+      --surface: #ffffff;
+      --surface-2: #f4f8ff;
+      --surface-3: #eef5ff;
+      --text: #122033;
+      --muted: #5d6b80;
+      --border: #d8e3f2;
+      --primary: #153e75;
+      --primary-2: #2563eb;
+      --primary-3: #dbeafe;
+      --accent: #0f9d8a;
+      --accent-soft: #e7fbf7;
+      --success: #0d7a46;
+      --warning: #9a6700;
+      --danger: #a12d2f;
+      --shadow: 0 12px 30px rgba(21, 62, 117, 0.10);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; font-family: Inter, Arial, Helvetica, sans-serif; background: var(--bg); color: var(--text); }
+    body { min-height: 100vh; }
+    button, input, textarea, select { font: inherit; }
+    a { color: inherit; }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding: 18px 22px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, #ffffff 0%, #edf4ff 100%);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .status-pill {
+      border: 1px solid #c7d8f0;
+      background: linear-gradient(135deg, #153e75 0%, #2563eb 100%);
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 0.92rem;
+      box-shadow: var(--shadow);
+    }
+
+    .screen {
+      display: none;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .screen.active { display: block; }
+
+    .screen-header {
+      padding: 30px 28px 0;
+      background: linear-gradient(180deg, #f7fbff 0%, rgba(247,251,255,0.2) 100%);
+    }
+
+    .eyebrow {
+      color: var(--primary-2);
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .screen-header h2 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .screen-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 780px;
+    }
+
+    .screen-body {
+      padding: 28px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+    }
+
+    .hero-card, .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(21, 62, 117, 0.06);
+    }
+
+    .card.soft { background: linear-gradient(180deg, var(--surface-3) 0%, var(--surface-2) 100%); }
+
+    .hero-card h3, .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+    }
+
+    .hero-card p, .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .list-clean {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .list-clean li {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #f3f7ff 100%);
+      border: 1px solid var(--border);
+    }
+
+    .screen-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 28px 28px;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0), #fff 35%);
+    }
+
+    .left-actions, .right-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.18s ease;
+      font-weight: 600;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%); color: #fff; border-color: var(--primary); }
+    .btn.secondary { background: linear-gradient(180deg, #ffffff 0%, var(--surface-2) 100%); }
+    .btn.ghost { background: transparent; }
+    .btn.success { background: var(--success); color: #fff; border-color: var(--success); }
+    .btn.warning { background: #fff6df; color: var(--warning); border-color: #f1d999; }
+    .btn.danger { background: #fff0f0; color: var(--danger); border-color: #efc2c2; }
+
+    .message-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .message-column {
+      background: linear-gradient(180deg, #f7fbff 0%, #eef5ff 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .message-column h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+
+    .message-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .message-item {
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px;
+      cursor: pointer;
+    }
+
+    .message-item:hover { border-color: #bfd0e3; }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      margin-bottom: 8px;
+    }
+
+    .message-text { font-size: 0.95rem; line-height: 1.5; }
+
+    .prompt-box {
+      margin-top: 22px;
+      padding: 18px;
+      background: linear-gradient(180deg, #eff8ff 0%, #f8fbff 100%);
+      border: 1px solid #cfe1f7;
+      border-radius: 16px;
+    }
+
+    .prompt-box h4 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+
+    .choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .choice-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .choice-btn.selected {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #eef5fd;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 92px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      resize: vertical;
+      background: #fff;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .timeline-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
+    }
+
+    .step-index {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 880px;
+      background: #fff;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      font-size: 0.95rem;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 700;
+      background: #f9fbfd;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .badge.processed { background: #effaf4; color: var(--success); border-color: #bce3cc; }
+    .badge.review { background: #fff7e7; color: var(--warning); border-color: #ecd699; }
+    .badge.flagged { background: #fff1f1; color: var(--danger); border-color: #efc2c2; }
+    .badge.pending { background: #f0f5fb; color: var(--primary); border-color: #c6d8ec; }
+
+    .group-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .group-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: var(--surface);
+    }
+
+    .group-card header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 14px;
+    }
+
+    .group-card h3 {
+      margin: 0 0 6px;
+      font-size: 1.08rem;
+    }
+
+    .group-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .group-items {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .group-item {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: var(--surface-2);
+    }
+
+    .group-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      padding: 18px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
+      border-radius: 18px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .summary-col {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+    }
+
+    .summary-col h3 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+    }
+
+    .summary-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .summary-col li {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .cta-card {
+      margin-top: 22px;
+      border: 1px solid #bfdbfe;
+      background: linear-gradient(135deg, #eff6ff 0%, #ecfeff 100%);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .cta-card h3 { margin: 0 0 8px; }
+    .cta-card p { margin: 0 0 16px; color: var(--muted); }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .source-link {
+      color: var(--primary-2);
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      background: #122033;
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: 0.2s ease;
+      max-width: 320px;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .source-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.48);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1100;
+    }
+
+    .source-modal.open { display: flex; }
+
+    .modal-card {
+      width: min(760px, 100%);
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      max-height: 85vh;
+      overflow: auto;
+    }
+
+    .modal-card header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+
+    .modal-card h3 { margin: 0 0 6px; }
+    .modal-card p { margin: 0; color: var(--muted); }
+
+    @media (max-width: 980px) {
+      .grid-2, .summary-grid, .stats, .message-grid { grid-template-columns: 1fr; }
+      .screen-header h2 { font-size: 1.6rem; }
+      .screen-footer { flex-direction: column; align-items: stretch; }
+      .left-actions, .right-actions { width: 100%; justify-content: space-between; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-  <div id="app">
-    <header class="app-header">
-      <div class="logo">AnjohLedger</div>
-      <div class="tagline">For treasurers who are tired of chaos.</div>
-    </header>
+  <div class="app-shell">
+    <div class="topbar">
+      <div class="brand">
+        <h1>AnjohLedger Demo</h1>
+        <p>Formal walkthrough of how scattered payment declarations can become a clear treasurer workspace.</p>
+      </div>
+      <div class="status-pill" id="progressPill">Screen 1 of 7</div>
+    </div>
 
-    <main class="screen-container">
-      <!-- Screen 1: Chaos (WhatsApp-style) -->
-      <section class="screen active" data-screen-id="chaos">
-        <div class="phone-frame">
-          <div class="phone-header">
-            <div class="phone-title">MECUDA - NW</div>
-            <div class="phone-subtitle">Treasurer’s WhatsApp</div>
+    <section class="screen active" data-screen="welcome">
+      <div class="screen-header">
+        <div class="eyebrow">Overview</div>
+        <h2>From payment confusion to clear records</h2>
+        <p>AnjohLedger helps treasurers and financial secretaries process payment declarations from WhatsApp, text messages, emails, and payment alerts into one simple review screen.</p>
+      </div>
+      <div class="screen-body">
+        <div class="grid-2">
+          <div class="hero-card soft">
+            <h3>What this demo will show</h3>
+            <ul class="list-clean">
+              <li>The current chaos of scattered messages and repeated confirmations.</li>
+              <li>How records can be processed step by step.</li>
+              <li>How likely duplicates and unclear items can be surfaced for review.</li>
+              <li>A clean summary of who has paid, what needs review, and what is still pending.</li>
+            </ul>
           </div>
-          <div class="chat-window">
-            <div class="chat-message incoming">
-              <div class="chat-name">Tonfon</div>
-              <div class="chat-text">I don pay o. Check your Zelle.</div>
-              <div class="chat-meta">2:34 PM</div>
-            </div>
-            <div class="chat-message incoming">
-              <div class="chat-name">Ambubit</div>
-              <div class="chat-text">See screenshot.</div>
-              <div class="chat-meta">2:36 PM</div>
-            </div>
-            <div class="chat-message incoming">
-              <div class="chat-name">Ngopazi</div>
-              <div class="chat-text">Treasurer, I sent my own yesterday.</div>
-              <div class="chat-meta">2:38 PM</div>
-            </div>
-            <div class="chat-message system">
-              <div class="chat-text">Zelle payment received from Amina — $300</div>
-              <div class="chat-meta">2:39 PM</div>
-            </div>
-            <div class="chat-message system">
-              <div class="chat-text">Deposit notification: $300</div>
-              <div class="chat-meta">1:45 PM</div>
-            </div>
-          </div>
-          <div class="phone-footer">
-            <div class="phone-caption">This is the treasurer’s life.</div>
-            <div class="pagination">Chaos 1/7</div>
+          <div class="hero-card">
+            <h3>Important note</h3>
+            <p>This is a demonstration prototype. It simulates the workflow using realistic sample records. It does not yet connect to live WhatsApp, email, SMS, or payment apps.</p>
+            <ul class="list-clean">
+              <li>14 sample records</li>
+              <li>User-controlled screen progression</li>
+              <li>Two short research prompts</li>
+              <li>WhatsApp CTA at the end</li>
+            </ul>
           </div>
         </div>
-
-        <div class="copy-block">
-          <h1>Every treasurer you know lives here.</h1>
-          <p>
-            WhatsApp, Zelle, Cash App, bank alerts, screenshots, voice notes —
-            all flying at you from every direction. And somehow, you’re supposed
-            to turn this chaos into a clean report.
-          </p>
+      </div>
+      <div class="screen-footer">
+        <div class="left-actions">
+          <span class="mini-note">Built as a static web app for easy deployment on Vercel.</span>
         </div>
-
-        <button class="cta-primary" data-next-screen="stress">
-          See how this chaos feels in your body
-        </button>
-        <button class="cta-secondary" data-next-screen="ledger-preview">
-          Skip ahead to the ledger
-        </button>
-      </section>
-
-      <!-- Screen 2: Stress -->
-      <section class="screen" data-screen-id="stress">
-        <div class="screen-content">
-          <h1>It’s not just messages. It’s pressure.</h1>
-          <p>
-            Members don’t see the late nights, the double-checking, the fear of
-            making a mistake with someone’s hard-earned money.
-          </p>
-          <ul class="bullet-list">
-            <li>“Did I record Amina’s payment?”</li>
-            <li>“Did I miss that Cash App screenshot?”</li>
-            <li>“What if my report doesn’t balance?”</li>
-          </ul>
-          <p>
-            You’re not just tracking money. You’re carrying trust.
-          </p>
+        <div class="right-actions">
+          <button class="btn primary" data-next>See the problem</button>
         </div>
+      </div>
+    </section>
 
-        <button class="cta-primary" data-next-screen="introduce">
-          What if the ledger did the heavy lifting?
-        </button>
-        <button class="cta-secondary" data-next-screen="chaos">
-          Go back to the chaos
-        </button>
-      </section>
-
-      <!-- Screen 3: Introduce AnjohLedger -->
-      <section class="screen" data-screen-id="introduce">
-        <div class="screen-content">
-          <h1>Meet AnjohLedger.</h1>
-          <p>
-            A simple, mobile-first ledger built for njangi and association
-            treasurers — not for banks, not for accountants, but for <em>you</em>.
-          </p>
-          <p>
-            One place where every payment, every member, every balance, and
-            every report lives — clean, organized, and ready when you are.
-          </p>
-        </div>
-
-        <button class="cta-primary" data-next-screen="how-it-works">
-          Show me how it works
-        </button>
-        <button class="cta-secondary" data-next-screen="ledger-preview">
-          Jump straight to the ledger
-        </button>
-      </section>
-
-      <!-- Screen 4: How it works -->
-      <section class="screen" data-screen-id="how-it-works">
-        <div class="screen-content">
-          <h1>From chaos to clean ledger in three steps.</h1>
-          <ol class="numbered-list">
-            <li><strong>Add your members</strong> — names, phone numbers, and contributions.</li>
-            <li><strong>Record payments</strong> — Zelle, Cash App, bank transfer, cash.</li>
-            <li><strong>Share reports</strong> — balances, arrears, and history in one tap.</li>
-          </ol>
-          <p>
-            No formulas. No spreadsheets. No guessing.
-          </p>
-        </div>
-
-        <button class="cta-primary" data-next-screen="ledger-preview">
-          See a real ledger example
-        </button>
-        <button class="cta-secondary" data-next-screen="introduce">
-          Go back
-        </button>
-      </section>
-
-      <!-- Screen 5: Ledger preview -->
-      <section class="screen" data-screen-id="ledger-preview">
-        <div class="screen-content">
-          <h1>This is what your ledger could look like.</h1>
-          <div class="ledger-card">
-            <div class="ledger-header">
-              <div>
-                <div class="ledger-title">MECUDA - NW Contributions</div>
-                <div class="ledger-subtitle">Cycle: Jan – Mar 2026</div>
-              </div>
-              <div class="ledger-balance">
-                <div class="label">Total Collected</div>
-                <div class="value">$4,250</div>
-              </div>
-            </div>
-            <table class="ledger-table">
-              <thead>
-                <tr>
-                  <th>Member</th>
-                  <th>Paid</th>
-                  <th>Method</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Amina</td>
-                  <td>$300</td>
-                  <td>Zelle</td>
-                  <td class="status-paid">Paid</td>
-                </tr>
-                <tr>
-                  <td>Tonfon</td>
-                  <td>$300</td>
-                  <td>Cash App</td>
-                  <td class="status-paid">Paid</td>
-                </tr>
-                <tr>
-                  <td>Ngopazi</td>
-                  <td>$300</td>
-                  <td>Bank Transfer</td>
-                  <td class="status-paid">Paid</td>
-                </tr>
-                <tr>
-                  <td>Ambubit</td>
-                  <td>$0</td>
-                  <td>—</td>
-                  <td class="status-due">Due</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="ledger-footer">
-              <span>Members: 25</span>
-              <span>Paid: 18</span>
-              <span>Due: 7</span>
-            </div>
+    <section class="screen" data-screen="chaos">
+      <div class="screen-header">
+        <div class="eyebrow">Current state</div>
+        <h2>What the treasurer is dealing with now</h2>
+        <p>Declarations come in from several places. Some refer to the same payment. Some are incomplete. Some combine two people in one message. The treasurer still has to make sense of it all.</p>
+      </div>
+      <div class="screen-body">
+        <div class="message-grid" id="chaosGrid"></div>
+        <div class="prompt-box">
+          <h4>Does this look like the kind of payment confusion you deal with?</h4>
+          <div class="choice-row" data-prompt="chaos_fit">
+            <button class="choice-btn" data-value="Very close">Very close</button>
+            <button class="choice-btn" data-value="Somewhat close">Somewhat close</button>
+            <button class="choice-btn" data-value="Not really">Not really</button>
           </div>
-          <p>
-            Imagine opening this instead of scrolling through screenshots and
-            voice notes.
-          </p>
+          <textarea id="chaosFeedback" placeholder="Optional: What is missing from your real situation?"></textarea>
         </div>
+      </div>
+      <div class="screen-footer">
+        <div class="left-actions"><button class="btn" data-back>Back</button></div>
+        <div class="right-actions"><button class="btn primary" data-next>Start processing</button></div>
+      </div>
+    </section>
 
-        <button class="cta-primary" data-next-screen="trust">
-          How does this build trust?
-        </button>
-        <button class="cta-secondary" data-next-screen="how-it-works">
-          Go back to how it works
-        </button>
-      </section>
+    <section class="screen" data-screen="processing">
+      <div class="screen-header">
+        <div class="eyebrow">Processing</div>
+        <h2>How AnjohLedger starts making sense of it</h2>
+        <p>The system is not just storing messages. It reads key details, groups likely matches, and prepares a calmer review flow for the treasurer.</p>
+      </div>
+      <div class="screen-body">
+        <div class="timeline" id="processingTimeline"></div>
+      </div>
+      <div class="screen-footer">
+        <div class="left-actions"><button class="btn" data-back>Back</button></div>
+        <div class="right-actions"><button class="btn primary" data-next>See extracted records</button></div>
+      </div>
+    </section>
 
-      <!-- Screen 6: Trust & reporting -->
-      <section class="screen" data-screen-id="trust">
-        <div class="screen-content">
-          <h1>Trust is your real currency.</h1>
-          <p>
-            When your ledger is clean, your reports are simple, and your
-            answers are instant, members relax.
-          </p>
-          <ul class="bullet-list">
-            <li>“Treasurer, how much have we collected?” → Answer in seconds.</li>
-            <li>“Who is still owing?” → One tap.</li>
-            <li>“Can you send me the report?” → Share as PDF or screenshot.</li>
-          </ul>
-          <p>
-            AnjohLedger doesn’t just track money. It protects your reputation.
-          </p>
+    <section class="screen" data-screen="records">
+      <div class="screen-header">
+        <div class="eyebrow">Extraction</div>
+        <h2>Early structure starts to appear</h2>
+        <p>Names, amounts, purposes, channels, and timestamps can now be shown in one place. Some items are already clear. Others still need checking.</p>
+      </div>
+      <div class="screen-body">
+        <div class="toolbar">
+          <button class="btn secondary record-filter" data-filter="all">All items</button>
+          <button class="btn secondary record-filter" data-filter="Possible match">Possible matches</button>
+          <button class="btn secondary record-filter" data-filter="Needs review">Need review</button>
+          <button class="btn secondary record-filter" data-filter="Extracted">Clear items</button>
         </div>
-
-        <button class="cta-primary" data-next-screen="final-cta">
-          I want this kind of peace
-        </button>
-        <button class="cta-secondary" data-next-screen="ledger-preview">
-          See the ledger again
-        </button>
-      </section>
-
-      <!-- Screen 7: Final CTA -->
-      <section class="screen" data-screen-id="final-cta">
-        <div class="screen-content">
-          <h1>Ready to stop surviving and start treasuring?</h1>
-          <p>
-            We’re inviting a small group of treasurers to try AnjohLedger
-            early, give feedback, and shape the future of this tool.
-          </p>
-          <p>
-            If you’ve ever felt alone in the chaos, this is your invitation.
-          </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Purpose</th>
+                <th>Source</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recordsTableBody"></tbody>
+          </table>
         </div>
+      </div>
+      <div class="screen-footer">
+        <div class="left-actions"><button class="btn" data-back>Back</button></div>
+        <div class="right-actions"><button class="btn primary" data-next>Show review items</button></div>
+      </div>
+    </section>
 
-        <a
-          class="cta-primary"
-          id="whatsapp-cta"
-          href="https://wa.me/1234567890?text=Hi%2C%20I%27m%20a%20treasurer%20and%20I%27d%20like%20to%20try%20AnjohLedger."
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Message us on WhatsApp to join the early list
-        </a>
-        <button class="cta-secondary" data-next-screen="chaos">
-          Replay the demo from the beginning
-        </button>
-      </section>
-    </main>
+    <section class="screen" data-screen="review">
+      <div class="screen-header">
+        <div class="eyebrow">Review</div>
+        <h2>Where the real headache usually is</h2>
+        <p>Likely duplicates, combined payments, and incomplete declarations are surfaced for deliberate review instead of being buried inside scattered messages.</p>
+      </div>
+      <div class="screen-body">
+        <div class="group-grid" id="reviewGroups"></div>
+      </div>
+      <div class="screen-footer">
+        <div class="left-actions"><button class="btn" data-back>Back</button></div>
+        <div class="right-actions"><button class="btn primary" data-next>Open treasurer workspace</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="workspace">
+      <div class="screen-header">
+        <div class="eyebrow">Workspace</div>
+        <h2>A calmer screen for the treasurer</h2>
+        <p>After processing, the treasurer can focus on structured review, follow-up, and confirmation instead of searching through chats, texts, and alerts.</p>
+      </div>
+      <div class="screen-body">
+        <div class="stats" id="workspaceStats"></div>
+        <div class="toolbar">
+          <button class="btn secondary workspace-filter" data-filter="all">All records</button>
+          <button class="btn secondary workspace-filter" data-filter="Processed">Processed</button>
+          <button class="btn secondary workspace-filter" data-filter="Pending review">Pending review</button>
+          <button class="btn secondary workspace-filter" data-filter="Flagged">Flagged</button>
+          <button class="btn secondary workspace-filter" data-filter="Awaiting confirmation">Awaiting confirmation</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Purpose</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="workspaceTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="screen-footer">
+        <div class="left-actions"><button class="btn" data-back>Back</button></div>
+        <div class="right-actions"><button class="btn primary" data-next>See final summary</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="summary">
+      <div class="screen-header">
+        <div class="eyebrow">Outcome</div>
+        <h2>Clear view of what came in and what still needs attention</h2>
+        <p>The treasurer can now see who has paid, what still needs review, and what is still pending. That is the shift from confusion to operational clarity.</p>
+      </div>
+      <div class="screen-body">
+        <div class="summary-grid" id="summaryGrid"></div>
+        <div class="prompt-box">
+          <h4>Which part of this would help you most?</h4>
+          <div class="choice-row" data-prompt="value_focus">
+            <button class="choice-btn" data-value="Seeing all messages together">Seeing all messages together</button>
+            <button class="choice-btn" data-value="Reducing duplicates">Reducing duplicates</button>
+            <button class="choice-btn" data-value="Knowing who has paid">Knowing who has paid</button>
+            <button class="choice-btn" data-value="Knowing what still needs review">Knowing what still needs review</button>
+            <button class="choice-btn" data-value="Following up on unresolved items">Following up on unresolved items</button>
+          </div>
+          <textarea id="summaryFeedback" placeholder="Optional: What would make you trust this more?"></textarea>
+        </div>
+        <div class="cta-card">
+          <h3>Want to discuss this for your group?</h3>
+          <p>Questions, feedback, or interest in testing with your group can go straight to WhatsApp.</p>
+          <div class="right-actions">
+            <a class="btn success" id="whatsappCta" href="#" target="_blank" rel="noopener noreferrer">Discuss this on WhatsApp</a>
+            <button class="btn" id="restartDemo">Restart demo</button>
+          </div>
+          <p class="mini-note" style="margin-top:12px;">WhatsApp: +1 (781) 475-0230</p>
+        </div>
+        <p class="footer-note">This demo was built as a static HTML, CSS, and JavaScript prototype for deployment on Vercel. It will also run on Netlify, GitHub Pages, or locally in a browser.</p>
+      </div>
+      <div class="screen-footer">
+        <div class="left-actions"><button class="btn" data-back>Back</button></div>
+        <div class="right-actions"></div>
+      </div>
+    </section>
   </div>
 
-  <script src="script.js"></script>
+  <div class="source-modal" id="sourceModal" aria-hidden="true">
+    <div class="modal-card">
+      <header>
+        <div>
+          <h3 id="modalTitle">Source trail</h3>
+          <p id="modalSubtitle">Original messages behind this record</p>
+        </div>
+        <button class="btn" id="closeModal">Close</button>
+      </header>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+        window.posthog = window.posthog || {
+      capture: function () {},
+      init: function () {}
+    };
+
+    const state = {
+      currentScreen: 0,
+      screenOrder: ["welcome", "chaos", "processing", "records", "review", "workspace", "summary"],
+      screenStartAt: Date.now(),
+      selectedChaosPrompt: null,
+      selectedSummaryPrompt: null,
+      recordFilter: 'all',
+      workspaceFilter: 'all',
+      events: JSON.parse(localStorage.getItem('anjohledger_demo_events') || '[]'),
+      reviewActions: {
+        duplicate: null,
+        combined: null,
+        missing: null
+      }
+    };
+
+    const rawMessages = {
+      whatsapp: [
+        { id: 'w1', time: '8:14 AM', sender: 'WhatsApp', text: 'Ma Bea don send $50 for njangi. Check am.' },
+        { id: 'w2', time: '9:19 AM', sender: 'WhatsApp', text: "Dr. Fa' sent my own too. $100 for levy." },
+        { id: 'w3', time: '10:04 AM', sender: 'WhatsApp', text: 'Na for Ma Jane and Joycey. I sent together.' },
+        { id: 'w4', time: '11:08 AM', sender: 'WhatsApp', text: 'Fomunjom says payment done for meeting dues.' }
+      ],
+      sms: [
+        { id: 's1', time: '8:15 AM', sender: 'SMS Alert', text: 'Deposit alert: $50 received from BEATRICE N.' },
+        { id: 's2', time: '10:08 AM', sender: 'SMS Alert', text: 'Deposit alert: $200 received.' },
+        { id: 's3', time: '11:47 AM', sender: 'SMS Alert', text: 'Deposit alert: $100 received from TAH F.' }
+      ],
+      email: [
+        { id: 'e1', time: '8:18 AM', sender: 'Zelle Email', text: 'Payment received from Beatrice Ng.' },
+        { id: 'e2', time: '9:02 AM', sender: 'Email', text: 'Payment received from Ambit for family contribution. Amount: $75.' },
+        { id: 'e3', time: '10:43 AM', sender: 'Email', text: 'Payment received from Presido. Amount: $150 for development contribution.' }
+      ],
+      payment: [
+        { id: 'p1', time: '9:20 AM', sender: 'Cash App', text: 'Cash App payment received: $100 from F. Tah.' },
+        { id: 'p2', time: '9:36 AM', sender: 'Payment Alert', text: 'Anding paid $50 for welfare contribution.' },
+        { id: 'p3', time: '11:58 AM', sender: 'Payment Alert', text: 'Bambot paid $25 for meeting dues.' }
+      ]
+    };
+
+    const extractedRecords = [
+      { id: 1, name: 'Ma Bea', amount: '$50', purpose: 'Njangi', source: 'WhatsApp', time: '8:14 AM', status: 'Extracted' },
+      { id: 2, name: 'Beatrice N.', amount: '$50', purpose: 'Unknown', source: 'SMS', time: '8:15 AM', status: 'Possible match' },
+      { id: 3, name: 'Beatrice Ng.', amount: '$50', purpose: 'Unknown', source: 'Email', time: '8:18 AM', status: 'Possible match' },
+      { id: 4, name: 'Ambit', amount: '$75', purpose: 'Family contribution', source: 'Email', time: '9:02 AM', status: 'Extracted' },
+      { id: 5, name: "Dr. Fa'", amount: '$100', purpose: 'Levy', source: 'WhatsApp', time: '9:19 AM', status: 'Extracted' },
+      { id: 6, name: 'Tah', amount: '$100', purpose: 'Levy', source: 'Payment alert', time: '9:20 AM', status: 'Needs review' },
+      { id: 7, name: 'Anding', amount: '$50', purpose: 'Welfare contribution', source: 'Payment alert', time: '9:36 AM', status: 'Extracted' },
+      { id: 8, name: 'Joycey + Ma Jane', amount: '$200', purpose: 'Combined contribution', source: 'WhatsApp', time: '10:04 AM', status: 'Needs review' },
+      { id: 9, name: 'Unknown split', amount: '$200', purpose: 'Unknown', source: 'SMS', time: '10:08 AM', status: 'Possible match' },
+      { id: 10, name: 'Presido', amount: '$150', purpose: 'Development contribution', source: 'Email', time: '10:43 AM', status: 'Extracted' },
+      { id: 11, name: 'Fomunjom', amount: '—', purpose: 'Meeting dues', source: 'WhatsApp', time: '11:08 AM', status: 'Needs review' },
+      { id: 12, name: 'Bambot', amount: '$25', purpose: 'Meeting dues', source: 'Payment alert', time: '11:58 AM', status: 'Extracted' },
+      { id: 13, name: 'Mbanga', amount: '$50', purpose: 'Njangi', source: 'Email', time: '12:11 PM', status: 'Extracted' },
+      { id: 14, name: 'Ma\'for', amount: '$75', purpose: 'Event contribution', source: 'SMS', time: '12:26 PM', status: 'Extracted' }
+    ];
+
+    const reviewGroups = [
+      {
+        key: 'duplicate',
+        title: 'Possible duplicate',
+        note: 'Likely one payment seen in three places.',
+        badge: 'Likely duplicate',
+        items: [
+          'Ma Bea — WhatsApp declaration — $50 — Njangi',
+          'Beatrice N. — SMS deposit alert — $50',
+          'Beatrice Ng. — Email receipt — payment received'
+        ],
+        actions: ['Merge these', 'Keep separate', 'Not sure']
+      },
+      {
+        key: 'combined',
+        title: 'Combined payment',
+        note: 'One payment may cover two people.',
+        badge: 'Needs split',
+        items: [
+          'WhatsApp: “Na for Ma Jane and Joycey. I sent together.”',
+          'SMS alert: $200 received',
+          'No clean split yet between Joycey and Ma Jane'
+        ],
+        actions: ['Split into two entries', 'Leave for later', 'Add note']
+      },
+      {
+        key: 'missing',
+        title: 'Incomplete declaration',
+        note: 'Declaration found, amount not yet confirmed.',
+        badge: 'Missing amount',
+        items: [
+          'Fomunjom — WhatsApp says payment made',
+          'Meeting dues purpose detected',
+          'No amount found yet from another source'
+        ],
+        actions: ['Flag for follow-up', 'Mark pending', 'Add note']
+      }
+    ];
+
+    const workspaceBase = [
+      { id: 'ws1', name: 'Ma Bea', amount: '$50', purpose: 'Njangi', status: 'Processed', sourceTrail: ['WhatsApp declaration', 'SMS deposit alert', 'Email receipt'] },
+      { id: 'ws2', name: 'Ambit', amount: '$75', purpose: 'Family contribution', status: 'Processed', sourceTrail: ['Email receipt'] },
+      { id: 'ws3', name: "Dr. Fa'", amount: '$100', purpose: 'Levy', status: 'Processed', sourceTrail: ['WhatsApp declaration'] },
+      { id: 'ws4', name: 'Presido', amount: '$150', purpose: 'Development contribution', status: 'Processed', sourceTrail: ['Email receipt'] },
+      { id: 'ws5', name: 'Anding', amount: '$50', purpose: 'Welfare contribution', status: 'Processed', sourceTrail: ['Payment app notification'] },
+      { id: 'ws6', name: 'Bambot', amount: '$25', purpose: 'Meeting dues', status: 'Processed', sourceTrail: ['Payment app notification'] },
+      { id: 'ws7', name: 'Mbanga', amount: '$50', purpose: 'Njangi', status: 'Processed', sourceTrail: ['Email receipt'] },
+      { id: 'ws8', name: "Ma'for", amount: '$75', purpose: 'Event contribution', status: 'Processed', sourceTrail: ['SMS alert'] },
+      { id: 'ws9', name: 'Joycey', amount: '$100', purpose: 'Combined contribution split', status: 'Pending review', sourceTrail: ['WhatsApp combined message', 'SMS alert'] },
+      { id: 'ws10', name: 'Ma Jane', amount: '$100', purpose: 'Combined contribution split', status: 'Pending review', sourceTrail: ['WhatsApp combined message', 'SMS alert'] },
+      { id: 'ws11', name: 'Tah', amount: '$100', purpose: 'Levy', status: 'Flagged', sourceTrail: ['Payment app notification'] },
+      { id: 'ws12', name: 'Fomunjom', amount: 'Unknown', purpose: 'Meeting dues', status: 'Awaiting confirmation', sourceTrail: ['WhatsApp declaration'] }
+    ];
+
+    const summaryData = {
+      paid: ['Ma Bea', 'Ambit', "Dr. Fa'", 'Presido', 'Bambot', 'Anding', 'Mbanga', "Ma'for"],
+      review: ['Joycey — Check split payment', 'Ma Jane — Check split payment', 'Tah — Confirm source', 'Fomunjom — Amount missing'],
+      pending: ['Ni Wali', 'Pa Werebe', 'Bambalan', 'Werengwi', 'Ngolengole', 'Etonwe', 'Ma Nanga', 'Bi']
+    };
+
+    const processingSteps = [
+      'Collecting declarations from WhatsApp, text messages, emails, and payment alerts.',
+      'Reading names, amounts, dates, and contribution purpose where possible.',
+      'Grouping records that may refer to the same payment.',
+      'Separating clear items from items that need human review.',
+      'Preparing a structured workspace for the treasurer.'
+    ];
+
+    const screenNodes = Array.from(document.querySelectorAll('.screen'));
+    const progressPill = document.getElementById('progressPill');
+    const toast = document.getElementById('toast');
+
+    function logEvent(name, payload = {}) {
+      const event = {
+        name,
+        payload,
+        at: new Date().toISOString(),
+        screen: state.screenOrder[state.currentScreen]
+      };
+      state.events.push(event);
+      localStorage.setItem('anjohledger_demo_events', JSON.stringify(state.events));
+      if (window.posthog && typeof window.posthog.capture === 'function') {
+        window.posthog.capture(name, {
+          ...payload,
+          screen: state.screenOrder[state.currentScreen],
+          event_at: event.at
+        });
+      }
+      console.log('Analytics event:', event);
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    function updateProgress() {
+      progressPill.textContent = `Screen ${state.currentScreen + 1} of ${state.screenOrder.length}`;
+    }
+
+    function trackScreenExit() {
+      const currentName = state.screenOrder[state.currentScreen];
+      const durationMs = Date.now() - state.screenStartAt;
+      logEvent('screen_time_recorded', { screen: currentName, durationMs });
+    }
+
+    function setScreen(index) {
+      if (index < 0 || index >= state.screenOrder.length) return;
+      if (index !== state.currentScreen) {
+        trackScreenExit();
+      }
+      state.currentScreen = index;
+      state.screenStartAt = Date.now();
+      screenNodes.forEach((node, i) => node.classList.toggle('active', i === index));
+      updateProgress();
+      const name = state.screenOrder[index];
+      logEvent('screen_viewed', { screen: name, index });
+    }
+
+    function badgeClass(status) {
+      if (status === 'Processed') return 'processed';
+      if (status === 'Pending review' || status === 'Needs review' || status === 'Possible match') return 'review';
+      if (status === 'Flagged') return 'flagged';
+      return 'pending';
+    }
+
+    function renderChaos() {
+      const chaosGrid = document.getElementById('chaosGrid');
+      const columns = [
+        ['WhatsApp messages', rawMessages.whatsapp],
+        ['Text messages', rawMessages.sms],
+        ['Emails', rawMessages.email],
+        ['Payment alerts', rawMessages.payment]
+      ];
+      chaosGrid.innerHTML = columns.map(([title, items]) => `
+        <div class="message-column">
+          <h3>${title}</h3>
+          <div class="message-list">
+            ${items.map(item => `
+              <div class="message-item" data-raw-id="${item.id}">
+                <div class="meta"><span>${item.sender}</span><span>${item.time}</span></div>
+                <div class="message-text">${item.text}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      chaosGrid.querySelectorAll('.message-item').forEach(el => {
+        el.addEventListener('click', () => {
+          logEvent('raw_message_expanded', { id: el.dataset.rawId });
+          showToast('Raw message opened for review.');
+        });
+      });
+    }
+
+    function renderProcessing() {
+      const container = document.getElementById('processingTimeline');
+      container.innerHTML = processingSteps.map((step, idx) => `
+        <div class="timeline-step">
+          <div class="step-index">${idx + 1}</div>
+          <div>
+            <strong>${step}</strong>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderExtractedTable() {
+      const tbody = document.getElementById('recordsTableBody');
+      const rows = extractedRecords.filter(record => state.recordFilter === 'all' || record.status === state.recordFilter);
+      tbody.innerHTML = rows.map(record => `
+        <tr>
+          <td>${record.name}</td>
+          <td>${record.amount}</td>
+          <td>${record.purpose}</td>
+          <td>${record.source}</td>
+          <td>${record.time}</td>
+          <td><span class="badge ${badgeClass(record.status)}">${record.status}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    function renderReviewGroups() {
+      const container = document.getElementById('reviewGroups');
+      container.innerHTML = reviewGroups.map(group => {
+        const selected = state.reviewActions[group.key];
+        return `
+          <div class="group-card">
+            <header>
+              <div>
+                <h3>${group.title}</h3>
+                <p>${group.note}</p>
+              </div>
+              <span class="badge review">${group.badge}</span>
+            </header>
+            <div class="group-items">
+              ${group.items.map(item => `<div class="group-item">${item}</div>`).join('')}
+            </div>
+            <div class="group-actions">
+              ${group.actions.map(action => `
+                <button class="btn ${selected === action ? 'primary' : 'secondary'} review-action" data-group="${group.key}" data-action="${action}">${action}</button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.review-action').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const group = btn.dataset.group;
+          const action = btn.dataset.action;
+          state.reviewActions[group] = action;
+          logEvent('review_action_clicked', { group, action });
+          renderReviewGroups();
+          showToast(`Saved: ${action}`);
+        });
+      });
+    }
+
+    function getWorkspaceData() {
+      return workspaceBase.map(item => ({ ...item }));
+    }
+
+    function renderWorkspace() {
+      const data = getWorkspaceData();
+      const filtered = data.filter(item => state.workspaceFilter === 'all' || item.status === state.workspaceFilter);
+
+      const stats = [
+        { label: 'Total declarations received', value: '14' },
+        { label: 'Processed cleanly', value: '8' },
+        { label: 'Need review', value: '2' },
+        { label: 'Flagged or awaiting confirmation', value: '2' }
+      ];
+      document.getElementById('workspaceStats').innerHTML = stats.map(stat => `
+        <div class="stat">
+          <div class="stat-label">${stat.label}</div>
+          <div class="stat-value">${stat.value}</div>
+        </div>
+      `).join('');
+
+      const tbody = document.getElementById('workspaceTableBody');
+      tbody.innerHTML = filtered.map(item => `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.amount}</td>
+          <td>${item.purpose}</td>
+          <td><span class="badge ${badgeClass(item.status)}">${item.status}</span></td>
+          <td>
+            <span class="source-link" data-source-id="${item.id}">View source trail</span>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('[data-source-id]').forEach(link => {
+        link.addEventListener('click', () => {
+          const item = data.find(d => d.id === link.dataset.sourceId);
+          openSourceModal(item);
+          logEvent('source_trail_opened', { id: item.id, name: item.name });
+        });
+      });
+    }
+
+    function renderSummary() {
+      const grid = document.getElementById('summaryGrid');
+      const cols = [
+        ['Who has paid', summaryData.paid, 'processed'],
+        ['Needs review', summaryData.review, 'review'],
+        ['Still pending', summaryData.pending, 'pending']
+      ];
+      grid.innerHTML = cols.map(([title, items, status]) => `
+        <div class="summary-col">
+          <h3>${title}</h3>
+          <ul>
+            ${items.map(item => `<li><span class="badge ${status}" style="margin-bottom:8px;">${title}</span><div>${item}</div></li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+    }
+
+    function openSourceModal(item) {
+      const modal = document.getElementById('sourceModal');
+      document.getElementById('modalTitle').textContent = `${item.name} — source trail`;
+      document.getElementById('modalSubtitle').textContent = `Original signals that support the current record for ${item.name}.`;
+      document.getElementById('modalBody').innerHTML = `
+        <div class="group-items">
+          ${item.sourceTrail.map(source => `<div class="group-item">${source}</div>`).join('')}
+        </div>
+      `;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeSourceModal() {
+      const modal = document.getElementById('sourceModal');
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    function savePromptSelection(groupNode, value) {
+      groupNode.querySelectorAll('.choice-btn').forEach(btn => btn.classList.toggle('selected', btn.dataset.value === value));
+      const promptName = groupNode.dataset.prompt;
+      logEvent('prompt_answered', { prompt: promptName, value });
+      if (promptName === 'chaos_fit') state.selectedChaosPrompt = value;
+      if (promptName === 'value_focus') state.selectedSummaryPrompt = value;
+    }
+
+    function setupPromptButtons() {
+      document.querySelectorAll('[data-prompt]').forEach(group => {
+        group.querySelectorAll('.choice-btn').forEach(btn => {
+          btn.addEventListener('click', () => savePromptSelection(group, btn.dataset.value));
+        });
+      });
+    }
+
+    function setupNavigation() {
+      document.querySelectorAll('[data-next]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const screen = state.screenOrder[state.currentScreen];
+          if (screen === 'chaos') {
+            logEvent('chaos_prompt_saved', {
+              selection: state.selectedChaosPrompt,
+              note: document.getElementById('chaosFeedback').value.trim()
+            });
+          }
+          if (screen === 'summary') {
+            logEvent('summary_prompt_saved', {
+              selection: state.selectedSummaryPrompt,
+              note: document.getElementById('summaryFeedback').value.trim()
+            });
+          }
+          logEvent('next_clicked', { from: screen });
+          setScreen(state.currentScreen + 1);
+        });
+      });
+
+      document.querySelectorAll('[data-back]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          logEvent('back_clicked', { from: state.screenOrder[state.currentScreen] });
+          setScreen(state.currentScreen - 1);
+        });
+      });
+    }
+
+    function setupFilters() {
+      document.querySelectorAll('.record-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.recordFilter = btn.dataset.filter;
+          logEvent('record_filter_clicked', { filter: state.recordFilter });
+          renderExtractedTable();
+        });
+      });
+      document.querySelectorAll('.workspace-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.workspaceFilter = btn.dataset.filter;
+          logEvent('workspace_filter_clicked', { filter: state.workspaceFilter });
+          renderWorkspace();
+        });
+      });
+    }
+
+    function setupSummaryActions() {
+      const phone = '15085090124';
+      const text = encodeURIComponent("Hello, I just completed the AnjohLedger demo. I'd like to discuss whether this could work for our group.");
+      const link = `https://wa.me/${phone}?text=${text}`;
+      const cta = document.getElementById('whatsappCta');
+      cta.href = link;
+      cta.addEventListener('click', () => {
+        logEvent('whatsapp_cta_clicked', { phone: '+1 (508) 509-0124' });
+      });
+
+      document.getElementById('restartDemo').addEventListener('click', () => {
+        logEvent('demo_restarted');
+        setScreen(0);
+      });
+    }
+
+    function setupLifecycleTracking() {
+      window.addEventListener('beforeunload', () => {
+        trackScreenExit();
+        logEvent('demo_abandoned', { atScreen: state.screenOrder[state.currentScreen] });
+      });
+    }
+
+    function init() {
+      renderChaos();
+      renderProcessing();
+      renderExtractedTable();
+      renderReviewGroups();
+      renderWorkspace();
+      renderSummary();
+      setupPromptButtons();
+      setupNavigation();
+      setupFilters();
+      setupSummaryActions();
+      setupLifecycleTracking();
+      document.getElementById('closeModal').addEventListener('click', closeSourceModal);
+      document.getElementById('sourceModal').addEventListener('click', (e) => {
+        if (e.target.id === 'sourceModal') closeSourceModal();
+      });
+      updateProgress();
+      logEvent('demo_started', { platformTarget: 'Vercel static deployment' });
+      logEvent('screen_viewed', { screen: state.screenOrder[0], index: 0 });
+    }
+
+    init();
+  </script>
 </body>
 </html>
