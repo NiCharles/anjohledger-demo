@@ -6,22 +6,23 @@
   <title>AnjohLedger Demo</title>
   <style>
     :root {
-      --bg: linear-gradient(180deg, #eef4ff 0%, #f8fbff 42%, #f4f7fb 100%);
+      --bg: linear-gradient(180deg, #e9f2ff 0%, #f6fbff 38%, #eef6ff 100%);
       --surface: #ffffff;
-      --surface-2: #f4f8ff;
-      --surface-3: #eef5ff;
-      --text: #122033;
-      --muted: #5d6b80;
-      --border: #d8e3f2;
-      --primary: #153e75;
+      --surface-2: #eef5ff;
+      --surface-3: #e0edff;
+      --text: #0f1d33;
+      --muted: #53657f;
+      --border: #cfe0fb;
+      --primary: #0f3d91;
       --primary-2: #2563eb;
       --primary-3: #dbeafe;
-      --accent: #0f9d8a;
-      --accent-soft: #e7fbf7;
+      --accent: #06b6d4;
+      --accent-2: #0ea5e9;
+      --accent-soft: #e6fbff;
       --success: #0d7a46;
       --warning: #9a6700;
       --danger: #a12d2f;
-      --shadow: 0 12px 30px rgba(21, 62, 117, 0.10);
+      --shadow: 0 14px 34px rgba(15, 61, 145, 0.12);
       --radius: 18px;
     }
 
@@ -45,7 +46,7 @@
       margin-bottom: 22px;
       padding: 18px 22px;
       border: 1px solid var(--border);
-      background: linear-gradient(135deg, #ffffff 0%, #edf4ff 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #e8f1ff 58%, #ddfbff 100%);
       border-radius: 24px;
       box-shadow: var(--shadow);
     }
@@ -63,12 +64,13 @@
     }
 
     .status-pill {
-      border: 1px solid #c7d8f0;
-      background: linear-gradient(135deg, #153e75 0%, #2563eb 100%);
+      border: 1px solid #2b6cf0;
+      background: linear-gradient(135deg, #0f3d91 0%, #2563eb 55%, #06b6d4 100%);
       padding: 10px 14px;
       border-radius: 999px;
       color: #fff;
       font-size: 0.92rem;
+      font-weight: 700;
       box-shadow: var(--shadow);
     }
 
@@ -85,22 +87,37 @@
 
     .screen-header {
       padding: 30px 28px 0;
-      background: linear-gradient(180deg, #f7fbff 0%, rgba(247,251,255,0.2) 100%);
+      background: linear-gradient(180deg, #eef5ff 0%, rgba(238,245,255,0.2) 100%);
+      position: relative;
+    }
+
+    .screen-header::after {
+      content: '';
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: -8px;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2563eb 0%, #06b6d4 100%);
+      opacity: 0.9;
     }
 
     .eyebrow {
-      color: var(--primary-2);
-      font-size: 0.86rem;
-      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 10px;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
     }
 
     .screen-header h2 {
       margin: 0 0 8px;
       font-size: 2rem;
       letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 760px;
     }
 
     .screen-header p {
@@ -122,11 +139,11 @@
     }
 
     .hero-card, .card {
-      background: var(--surface);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 20px;
-      box-shadow: 0 8px 20px rgba(21, 62, 117, 0.06);
+      box-shadow: 0 10px 24px rgba(15, 61, 145, 0.08);
     }
 
     .card.soft { background: linear-gradient(180deg, var(--surface-3) 0%, var(--surface-2) 100%); }
@@ -153,8 +170,20 @@
     .list-clean li {
       padding: 12px 14px;
       border-radius: 14px;
-      background: linear-gradient(180deg, #ffffff 0%, #f3f7ff 100%);
+      background: linear-gradient(180deg, #ffffff 0%, #edf5ff 100%);
       border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .list-clean li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: linear-gradient(180deg, #2563eb 0%, #06b6d4 100%);
     }
 
     .screen-footer {
@@ -182,12 +211,13 @@
       border-radius: 14px;
       cursor: pointer;
       transition: 0.18s ease;
-      font-weight: 600;
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(15, 61, 145, 0.06);
     }
 
     .btn:hover { transform: translateY(-1px); }
-    .btn.primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%); color: #fff; border-color: var(--primary); }
-    .btn.secondary { background: linear-gradient(180deg, #ffffff 0%, var(--surface-2) 100%); }
+    .btn.primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 58%, var(--accent) 100%); color: #fff; border-color: var(--primary); }
+    .btn.secondary { background: linear-gradient(180deg, #ffffff 0%, #edf5ff 100%); border-color: #c7daf8; }
     .btn.ghost { background: transparent; }
     .btn.success { background: var(--success); color: #fff; border-color: var(--success); }
     .btn.warning { background: #fff6df; color: var(--warning); border-color: #f1d999; }
@@ -200,15 +230,17 @@
     }
 
     .message-column {
-      background: linear-gradient(180deg, #f7fbff 0%, #eef5ff 100%);
+      background: linear-gradient(180deg, #f7fbff 0%, #e8f2ff 100%);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
     }
 
     .message-column h3 {
       margin: 0 0 12px;
       font-size: 1rem;
+      color: var(--primary);
     }
 
     .message-list {
@@ -218,7 +250,7 @@
 
     .message-item {
       border: 1px solid var(--border);
-      background: #fff;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
       border-radius: 14px;
       padding: 12px;
       cursor: pointer;
@@ -240,9 +272,10 @@
     .prompt-box {
       margin-top: 22px;
       padding: 18px;
-      background: linear-gradient(180deg, #eff8ff 0%, #f8fbff 100%);
-      border: 1px solid #cfe1f7;
+      background: linear-gradient(135deg, #edf7ff 0%, #eefcff 100%);
+      border: 1px solid #bedbf8;
       border-radius: 16px;
+      box-shadow: 0 8px 18px rgba(6, 182, 212, 0.08);
     }
 
     .prompt-box h4 {
@@ -267,9 +300,10 @@
     }
 
     .choice-btn.selected {
-      border-color: var(--primary);
+      border-color: var(--primary-2);
       color: var(--primary);
-      background: #eef5fd;
+      background: linear-gradient(135deg, #e8f1ff 0%, #dff9ff 100%);
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.10);
     }
 
     textarea {
@@ -295,19 +329,21 @@
       padding: 14px;
       border: 1px solid var(--border);
       border-radius: 16px;
-      background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
+      background: linear-gradient(180deg, #ffffff 0%, #eef6ff 100%);
+      box-shadow: 0 8px 18px rgba(15, 61, 145, 0.05);
     }
 
     .step-index {
       width: 34px;
       height: 34px;
       border-radius: 999px;
-      background: var(--primary);
+      background: linear-gradient(135deg, #0f3d91 0%, #2563eb 70%, #06b6d4 100%);
       color: #fff;
       display: grid;
       place-items: center;
-      font-weight: 700;
+      font-weight: 800;
       flex: 0 0 auto;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
     }
 
     .table-wrap {
@@ -333,8 +369,8 @@
 
     th {
       color: var(--muted);
-      font-weight: 700;
-      background: #f9fbfd;
+      font-weight: 800;
+      background: linear-gradient(180deg, #eff5ff 0%, #f8fbff 100%);
     }
 
     .badge {
@@ -363,7 +399,8 @@
       border: 1px solid var(--border);
       border-radius: 18px;
       padding: 18px;
-      background: var(--surface);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      box-shadow: 0 10px 24px rgba(15, 61, 145, 0.06);
     }
 
     .group-card header {
@@ -413,8 +450,9 @@
     .stat {
       padding: 18px;
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #edf5ff 70%, #e8fbff 100%);
       border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(15, 61, 145, 0.06);
     }
 
     .stat-label {
@@ -424,9 +462,10 @@
     }
 
     .stat-value {
-      font-size: 1.8rem;
+      font-size: 1.95rem;
       font-weight: 800;
       letter-spacing: -0.03em;
+      color: var(--primary);
     }
 
     .toolbar {
@@ -446,7 +485,8 @@
       border: 1px solid var(--border);
       border-radius: 18px;
       padding: 18px;
-      background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+      background: linear-gradient(135deg, #f7fbff 0%, #edf5ff 72%, #e8fcff 100%);
+      box-shadow: 0 10px 24px rgba(15, 61, 145, 0.06);
     }
 
     .summary-col h3 {
@@ -477,10 +517,11 @@
 
     .cta-card {
       margin-top: 22px;
-      border: 1px solid #bfdbfe;
-      background: linear-gradient(135deg, #eff6ff 0%, #ecfeff 100%);
+      border: 1px solid #9fdcf3;
+      background: linear-gradient(135deg, #dff2ff 0%, #e8f0ff 52%, #dcfbff 100%);
       border-radius: 18px;
       padding: 20px;
+      box-shadow: 0 12px 28px rgba(14, 165, 233, 0.10);
     }
 
     .cta-card h3 { margin: 0 0 8px; }
@@ -605,6 +646,7 @@
       </div>
       <div class="screen-footer">
         <div class="left-actions">
+          <span class="mini-note">Built as a static web app for easy deployment on Vercel.</span>
         </div>
         <div class="right-actions">
           <button class="btn primary" data-next>See the problem</button>
@@ -763,9 +805,9 @@
             <a class="btn success" id="whatsappCta" href="#" target="_blank" rel="noopener noreferrer">Discuss this on WhatsApp</a>
             <button class="btn" id="restartDemo">Restart demo</button>
           </div>
-          <p class="mini-note" style="margin-top:12px;">WhatsApp: +1 (781) 475-0230</p>
+          <p class="mini-note" style="margin-top:12px;">WhatsApp: +1 (508) 509-0124</p>
         </div>
-
+        <p class="footer-note">This demo was built as a static HTML, CSS, and JavaScript prototype for deployment on Vercel. It will also run on Netlify, GitHub Pages, or locally in a browser.</p>
       </div>
       <div class="screen-footer">
         <div class="left-actions"><button class="btn" data-back>Back</button></div>
@@ -790,29 +832,20 @@
   <div class="toast" id="toast"></div>
 
   <script>
-      window.posthog = window.posthog || {
-      capture: function () {},
-      init: function () {}
-    };
-
-    try {
-      if (window.location.protocol !== "file:") {
-        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split('.');2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement('script')).type='text/javascript',p.async=!0,p.src=s.api_host.replace('.i.posthog.com','-assets.i.posthog.com')+'/static/array.js',(r=t.getElementsByTagName('script')[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a='posthog',u.people=u.people||[],u.toString=function(t){var e='posthog';return'posthog'!==a&&(e+='.'+a),t||(e+=' (stub)'),e},u.people.toString=function(){return u.toString(1)+'.people (stub)'},o='capture identify alias people.set people.set_once reset person_properties.set person_properties.set_once group set_config register register_once unregister opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing startSessionRecording stopSessionRecording onSessionId'.split(' '),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-
-        window.posthog.init('phc_sugZabBRL64rdcA69yvhVRpwi9xDr595Tv86gVqP2gDq', {
-          api_host: 'https://us.i.posthog.com',
-          autocapture: true,
-          capture_pageview: true
-        });
-      }
-    } catch (err) {
-      console.warn('PostHog disabled due to init error:', err);
-      window.posthog = {
-        capture: function () {},
-        init: function () {}
-      };
-    }
-
+    // PostHog wiring
+    // 1) Create a PostHog project
+    // 2) Replace YOUR_POSTHOG_PROJECT_KEY below
+    // 3) If your project is in the US region, keep api_host as https://us.i.posthog.com
+    //    If your project is in the EU region, change it to https://eu.i.posthog.com
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split('.');2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement('script')).type='text/javascript',p.async=!0,p.src=s.api_host.replace('.i.posthog.com','-assets.i.posthog.com')+'/static/array.js',(r=t.getElementsByTagName('script')[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a='posthog',u.people=u.people||[],u.toString=function(t){var e='posthog';return'posthog'!==a&&(e+='.'+a),t||(e+=' (stub)'),e},u.people.toString=function(){return u.toString(1)+'.people (stub)'},o='capture identify alias people.set people.set_once reset person_properties.set person_properties.set_once group set_config register register_once unregister opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing startSessionRecording stopSessionRecording onSessionId'.split(' '),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_sugZabBRL64rdcA69yvhVRpwi9xDr595Tv86gVqP2gDq', {
+      api_host: 'https://us.i.posthog.com',
+      defaults: '2026-01-30',
+      autocapture: true,
+      capture_pageview: true,
+      capture_pageleave: true,
+      person_profiles: 'identified_only'
+    });
 
     const state = {
       currentScreen: 0,
